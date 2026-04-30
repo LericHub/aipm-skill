@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>活动首页 - 需求文档</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      background: #fff;
+      color: #333;
+      line-height: 1.8;
+      padding: 32px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #0052d9;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #0052d9;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin: 24px 0 12px;
+      padding-left: 10px;
+      border-left: 3px solid #0052d9;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin: 16px 0 8px;
+    }
+
+    p {
+      margin-bottom: 12px;
+    }
+
+    ul, ol {
+      margin: 12px 0;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .info-box {
+      background: #f5f7fa;
+      border-left: 4px solid #0052d9;
+      padding: 16px;
+      margin: 16px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .info-box h4 {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #0052d9;
+    }
+
+    .annotation {
+      background: #fff7e6;
+      border: 1px solid #ffd591;
+      padding: 12px 16px;
+      margin: 16px 0;
+      border-radius: 4px;
+    }
+
+    .annotation-title {
+      font-weight: 600;
+      color: #fa8c16;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      border: 1px solid #e8e8e8;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    .spec-table th {
+      background: #fafafa;
+      font-weight: 600;
+      width: 120px;
+    }
+
+    .component-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    .component-name {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .component-desc {
+      font-size: 13px;
+      color: #666;
+    }
+
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <h1>活动首页 - 需求文档</h1>
+
+  <div class="info-box">
+    <h4>页面基本信息</h4>
+    <table class="spec-table">
+      <tr>
+        <th>页面名称</th>
+        <td>活动首页</td>
+      </tr>
+      <tr>
+        <th>路由路径</th>
+        <td><code>/app/home.html</code></td>
+      </tr>
+      <tr>
+        <th>所属端</th>
+        <td>小程序端（C端）</td>
+      </tr>
+      <tr>
+        <th>优先级</th>
+        <td>P0 - 核心功能</td>
+      </tr>
+      <tr>
+        <th>页面类型</th>
+        <td>列表页</td>
+      </tr>
+      <tr>
+        <th>屏幕适配</th>
+        <td>最大宽度 375px，居中显示</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>1. 功能概述</h2>
+  <p>活动首页是用户端的核心入口，用于展示所有可参与的活动信息，支持活动分类筛选、搜索和快速参与。</p>
+
+  <h2>2. 页面结构</h2>
+  
+  <div class="component-card">
+    <div class="component-name">2.1 页面头部</div>
+    <div class="component-desc">
+      包含页面标题、副标题和搜索栏。
+      <ul>
+        <li><strong>标题:</strong> "精彩活动"，白色字体，渐变背景</li>
+        <li><strong>副标题:</strong> "发现更多有趣活动"，透明度0.8</li>
+        <li><strong>搜索栏:</strong> 半透明背景，圆形输入框</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="component-card">
+    <div class="component-name">2.2 Banner轮播</div>
+    <div class="component-desc">
+      顶部活动宣传图，支持手动滑动切换。
+      <ul>
+        <li>高度: 120px</li>
+        <li>圆角: 8px</li>
+        <li>左右间距: 16px</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="component-card">
+    <div class="component-name">2.3 分类Tab栏</div>
+    <div class="component-desc">
+      固定在顶部，支持以下分类切换：
+      <ul>
+        <li>全部</li>
+        <li>进行中</li>
+        <li>即将开始</li>
+        <li>已结束</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="component-card">
+    <div class="component-name">2.4 活动卡片列表</div>
+    <div class="component-desc">
+      展示活动信息，包含：
+      <ul>
+        <li><strong>封面图:</strong> 高度160px，圆角12px</li>
+        <li><strong>活动标题:</strong> 16px，加粗</li>
+        <li><strong>活动时间:</strong> 12px，灰色</li>
+        <li><strong>标签:</strong> 热门(红色)、新上线(绿色)</li>
+        <li><strong>底部:</strong> 参与人数 + 参与按钮</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="component-card">
+    <div class="component-name">2.5 底部导航栏</div>
+    <div class="component-desc">
+      固定在底部，包含TabBar导航。
+      <ul>
+        <li>首页 - 当前选中</li>
+        <li>我的 - 个人中心入口</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>3. 交互说明</h2>
+  
+  <h3>3.1 搜索功能</h3>
+  <div class="annotation">
+    <div class="annotation-title">[!IMPORTANT] 搜索规则</div>
+    <ul>
+      <li>点击搜索栏进入搜索页面</li>
+      <li>支持按活动名称关键词搜索</li>
+      <li>搜索历史记录保留最近10条</li>
+    </ul>
+  </div>
+
+  <h3>3.2 Tab切换</h3>
+  <div class="annotation">
+    <div class="annotation-title">[!IMPORTANT] 切换规则</div>
+    <ul>
+      <li>点击Tab立即切换，无动画</li>
+      <li>切换时保留滚动位置</li>
+      <li>当前选中Tab下方显示蓝色指示条</li>
+    </ul>
+  </div>
+
+  <h3>3.3 活动卡片</h3>
+  <div class="annotation">
+    <div class="annotation-title">[!IMPORTANT] 点击行为</div>
+    <ul>
+      <li>点击卡片跳转到活动详情页</li>
+      <li>点击"立即参与"按钮直接跳转</li>
+      <li>已结束活动显示"查看详情"按钮</li>
+    </ul>
+  </div>
+
+  <h2>4. 状态说明</h2>
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th>状态</th>
+        <th>显示样式</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>进行中</td>
+        <td>正常展示，按钮显示"立即参与"</td>
+        <td>活动正在进行中</td>
+      </tr>
+      <tr>
+        <td>即将开始</td>
+        <td>显示倒计时标签</td>
+        <td>活动尚未开始</td>
+      </tr>
+      <tr>
+        <td>已结束</td>
+        <td>按钮显示"查看详情"，卡片置灰</td>
+        <td>活动已结束</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>5. 接口设计</h2>
+  
+  <div class="component-card">
+    <div class="component-name">获取活动列表</div>
+    <div class="component-desc">
+      <code>GET /api/activities</code><br><br>
+      <strong>参数:</strong><br>
+      - <code>category</code> - 分类筛选<br>
+      - <code>keyword</code> - 搜索关键词<br>
+      - <code>page</code> - 页码<br>
+      - <code>pageSize</code> - 每页条数
+    </div>
+  </div>
+
+  <div class="component-card">
+    <div class="component-name">获取Banner</div>
+    <div class="component-desc">
+      <code>GET /api/banners</code><br><br>
+      <strong>参数:</strong><br>
+      - <code>position</code> - 位置标识
+    </div>
+  </div>
+
+  <h2>6. 异常处理</h2>
+  <ul>
+    <li><strong>网络错误:</strong> 显示错误提示和重试按钮</li>
+    <li><strong>数据为空:</strong> 显示空状态插画</li>
+    <li><strong>加载中:</strong> 显示骨架屏</li>
+    <li><strong>下拉刷新:</strong> 支持PullToRefresh</li>
+  </ul>
+
+  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e8e8e8; color: #999; font-size: 12px;">
+    <p>Vault-Tec Automated Research Terminal - Document Generated on 2026-04-09</p>
+    <p>Preparing for the Future! | Building a Better Tomorrow, Underground!</p>
+  </div>
+</body>
+</html>
