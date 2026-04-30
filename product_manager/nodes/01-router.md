@@ -21,7 +21,7 @@ description: 入口路由器，定义全局执行规范和节点概览
 
 ## 步骤3 执行规范
 
-1. **节点线性执行**: router → brainstorm → clarify → analysis → detail → genHTML → change
+1. **节点线性执行**: router → brainstorm → clarify → analysis → drawUserStory → detail → genPrototype → genHTML → change
 2. **用户确认**: 所有节点完成后需确认
 3. **状态管理**: 由 `_manage` 内部能力统一处理（状态更新、快照持久化、版本管理）
 4. **目录初始化**: 在 brainstorm 节点首次需要写文件时创建（第一个需要写文件的节点）
@@ -129,9 +129,11 @@ description: 入口路由器，定义全局执行规范和节点概览
 | 02 | brainstorm | ✓ | 头脑风暴 |
 | 03 | clarify | ✓ | 需求澄清(7维度) |
 | 04 | analysis | ✓ | 需求分析(PRD骨架) |
-| 05 | detail | ✓ | 详细设计(流程图) |
-| 06 | genHTML | ✓ | HTML原型生成 |
-| 07 | change | ✓ | 变更分析(可选) |
+| 05 | drawUserStory | ✓ | 用户故事可视化(PenPot) |
+| 06 | detail | ✓ | 详细设计(流程图) + PRD Penpot 可视化(横向多栏) |
+| 07 | genPrototype | ✓ | 页面原型设计(PenPot) |
+| 08 | genHTML | ✓ | HTML原型生成 |
+| 09 | change | ✓ | 变更分析(可选) |
 
 ---
 
@@ -140,6 +142,8 @@ description: 入口路由器，定义全局执行规范和节点概览
 - brainstorm: see ./02-brainstorm.md
 - clarify: see ./03-clarify.md
 - analysis: see ./04-analysis.md
-- detail: see ./05-detail.md
-- genHTML: see ./07-genHTML.md
-- change: see ./08-change.md
+- drawUserStory: see ./05-drawUserStory.md
+- detail: see ./06-detail.md
+- genPrototype: see ./07-genPrototype.md
+- genHTML: see ./08-genHTML.md
+- change: see ./09-change.md
