@@ -21,9 +21,8 @@ AIPM Skill 节点文件目录
 | 03 | clarify | ✓ | 需求澄清(7维度) |
 | 04 | analysis | ✓ | 需求分析(PRD骨架) |
 | 05 | detail | ✓ | 详细设计(流程图) |
-| 06 | prototyping | ✓ | 原型制作 |
-| 07 | writing | ✓ | PRD撰写 |
-| 08 | change | ✓ | 变更分析(可选) |
+| 06 | genHTML | ✓ | HTML原型生成 |
+| 07 | change | ✓ | 变更分析(可选) |
 
 ## 内部共享能力
 
@@ -42,7 +41,6 @@ AIPM Skill 节点文件目录
 - clarify ✓ → manage.update_node_status + manage.transition_to_next_node
 - analysis ✓ → manage.update_node_status + manage.transition_to_next_node
 - detail ✓ → manage.update_node_status + manage.transition_to_next_node
-- prototyping ✓ → manage.update_node_status + manage.transition_to_next_node
-- writing ✓ → manage.update_node_status + manage.transition_to_next_node
+- genHTML ✓ → manage.update_node_status + manage.transition_to_next_node
 - change ✓ → manage.update_node_status + manage.transition_to_first_affected_node
 ✓ = 用户已确认

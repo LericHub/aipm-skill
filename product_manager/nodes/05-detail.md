@@ -179,19 +179,31 @@ graph TD
 
 ## 步骤7 输出文件
 
-- 文件名: `detail.md`
-- 路径: `./output/V{version}/detail/detail.md`
-- 生成规则: 见 [01-router.md](01-router.md) 中的文件生成规则
+### 7.1 文件追加逻辑
+
+detail节点完成后，将内容追加到当前版本的PRD文档对应章节：
+
+**PRD章节映射：**
+- "详细设计"章节（## 3）：业务流程图、页面流程图、事件列表、异常场景
+- "页面详细设计"章节（## 4）：按页面维度组织详细内容
+
+### 7.2 输出路径
+
+- 路径: `./{项目名称}_{datetime}/output/V{Version}/PRD_{Version}.md`
+- 操作模式: 追加写入（不是覆盖）
 
 ---
 
 ## 步骤8 完成后
 
-1. 保存产出到文件：`./output/V{version}/detail/detail.md`
-2. 调用 manage.update_node_output("detail", "output/V{version}/detail/detail.md")
-3. 展示产出摘要
-4. 等待用户确认
-5. 确认后 → 调用 manage.update_node_status("detail", "CONFIRM")
-6. 确认后 → 调用 manage.transition_to_next_node()
-7. 确认后 → 调用 manage.persist_memory()
-8. 进入下一节点
+1. 读取当前版本PRD文档：`./{项目名称}_{datetime}/output/V{Version}/PRD_{Version}.md`
+2. 将detail节点产出追加到"详细设计"章节（## 3）
+3. 将detail节点产出按页面维度追加到"页面详细设计"章节（## 4）
+4. 保存更新后的PRD文档
+5. 调用 manage.update_node_output("detail", "{项目名称}_{datetime}/output/V{Version}/PRD_{Version}.md")
+6. 展示产出摘要
+7. 等待用户确认
+8. 确认后 → 调用 manage.update_node_status("detail", "CONFIRM")
+9. 确认后 → 调用 manage.transition_to_next_node()
+10. 确认后 → 调用 manage.persist_memory()
+11. 进入 GenHTML 节点

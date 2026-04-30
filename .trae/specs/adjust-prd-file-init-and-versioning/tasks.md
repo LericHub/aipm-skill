@@ -1,0 +1,58 @@
+# Tasks
+- [x] Task 1: 调整brainstorm节点目录初始化逻辑，创建brainstorm/和output/目录结构
+  - [x] SubTask 1.1: 修改brainstorm节点，创建项目根目录结构
+  - [x] SubTask 1.2: 修改brainstorm节点，创建brainstorm.md文件
+  - [x] SubTask 1.3: 更新Memory.json的目录结构字段
+- [x] Task 2: 调整clarify节点逻辑，将内容整合写入brainstorm/analysis.md
+  - [x] SubTask 2.1: 修改clarify节点，在brainstorm/目录生成analysis.md
+  - [x] SubTask 2.2: 实现brainstorm内容和clarify内容追加写入analysis.md
+- [x] Task 3: 调整analysis节点逻辑，创建PRD文档框架和版本目录
+  - [x] SubTask 3.1: 修改analysis节点，在output/V1/目录创建PRD_V1.md
+  - [x] SubTask 3.2: 实现PRD文档标准章节框架模板
+  - [x] SubTask 3.3: 实现analysis产出内容写入PRD文档对应章节
+- [x] Task 4: 调整detail节点逻辑，追加内容到PRD文档
+  - [x] SubTask 4.1: 修改detail节点，追加内容到output/V{Version}/PRD_{Version}.md
+  - [x] SubTask 4.2: 实现内容追加到PRD文档"详细设计"章节
+- [x] Task 5: 调整prototyping节点逻辑，生成静态HTML原型
+  - [x] SubTask 5.1: 修改prototyping节点，在output/V{Version}/prototype/目录生成HTML文件
+  - [x] SubTask 5.2: 更新PRD文档"原型与交互"章节的原型引用路径
+  - [x] SubTask 5.3: 删除prototyping节点生成PRD查看器的逻辑
+- [x] Task 6: 删除writing节点及其相关引用
+  - [x] SubTask 6.1: 删除nodes/07-writing.md文件
+  - [x] SubTask 6.2: 更新SKILL.md移除writing节点引用
+  - [x] SubTask 6.3: 更新README.md移除writing节点说明
+  - [x] SubTask 6.4: 更新_manage.md移除writing节点状态流转
+- [x] Task 7: 增强change节点变更影响分析逻辑
+  - [x] SubTask 7.1: 增加变更类型判断逻辑（想法/功能/文案布局）
+  - [x] SubTask 7.2: 增加回退节点判断规则（brainstorm/clarify/analysis/detail）
+  - [x] SubTask 7.3: 增加PRD章节定位逻辑（按大标题定位）
+  - [x] SubTask 7.4: 增加页面定位逻辑（按页面名称定位）
+  - [x] SubTask 7.5: 实现PRD文档和prototype目录的版本复制逻辑
+  - [x] SubTask 7.6: 实现版本号自动递增逻辑（major/minor）
+  - [x] SubTask 7.7: 实现Memory.json版本和文件路径同步更新
+- [x] Task 8: 更新_manage.md的版本管理和目录结构逻辑
+  - [x] SubTask 8.1: 更新Memory.json结构定义
+  - [x] SubTask 8.2: 更新版本号管理接口
+  - [x] SubTask 8.3: 更新节点列表和状态定义
+- [x] Task 9: 更新SKILL.md和README.md文档
+  - [x] SubTask 9.1: 更新SKILL.md的目录结构和输出文件说明
+  - [x] SubTask 9.2: 更新README.md的节点说明和工作流图
+- [x] Task 10: 功能测试验证
+  - [x] SubTask 10.1: 验证brainstorm节点目录初始化逻辑
+  - [x] SubTask 10.2: 验证clarify节点内容整合写入逻辑
+  - [x] SubTask 10.3: 验证analysis节点PRD框架创建逻辑
+  - [x] SubTask 10.4: 验证detail节点内容追加逻辑
+  - [x] SubTask 10.5: 验证prototyping节点HTML原型生成逻辑
+  - [x] SubTask 10.6: 验证change节点变更影响分析和版本管理逻辑
+  - [x] SubTask 10.7: 验证writing节点删除后的流程完整性
+
+# Task Dependencies
+- Task 2 依赖 Task 1 完成
+- Task 3 依赖 Task 1 完成
+- Task 4 依赖 Task 3 完成
+- Task 5 依赖 Task 4 完成
+- Task 6 可与 Task 1-5 并行执行
+- Task 7 依赖 Task 3-5 完成
+- Task 8 依赖 Task 1 完成
+- Task 9 依赖 Task 1-8 完成
+- Task 10 依赖 Task 1-9 完成

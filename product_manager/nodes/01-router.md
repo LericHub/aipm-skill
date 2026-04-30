@@ -21,7 +21,7 @@ description: 入口路由器，定义全局执行规范和节点概览
 
 ## 步骤3 执行规范
 
-1. **节点线性执行**: router → brainstorm → clarify → analysis → detail → prototyping → writing → change
+1. **节点线性执行**: router → brainstorm → clarify → analysis → detail → genHTML → change
 2. **用户确认**: 所有节点完成后需确认
 3. **状态管理**: 由 `_manage` 内部能力统一处理（状态更新、快照持久化、版本管理）
 4. **目录初始化**: 在 brainstorm 节点首次需要写文件时创建（第一个需要写文件的节点）
@@ -98,17 +98,19 @@ description: 入口路由器，定义全局执行规范和节点概览
 ### 目录结构
 
 ```
-output/V{version}/
-├── brainstorm/brainstorm.md
-├── clarify/clarify.md
-├── analysis/analysis.md
-├── detail/detail.md
-├── prototyping/
-│   ├── proto_index.html
-│   └── page_{page_name}.html
-└── writing/
-    ├── index.html
-    └── overview.html
+{项目名}_{datetime}/
+├── brainstorm/                    # 不纳入版本管理
+│   ├── brainstorm.md            # 功能骨架
+│   └── analysis.md              # brainstorm+clarify整合内容
+└── output/                       # 纳入版本管理
+    └── V{version}/
+        ├── PRD_{version}.md    # PRD文档（整合所有节点产出）
+        └── prototype/           # 原型文件
+            ├── index.html
+            ├── app/
+            │   └── page_*.html
+            └── web/
+                └── page_*.html
 ```
 
 ---
@@ -128,9 +130,8 @@ output/V{version}/
 | 03 | clarify | ✓ | 需求澄清(7维度) |
 | 04 | analysis | ✓ | 需求分析(PRD骨架) |
 | 05 | detail | ✓ | 详细设计(流程图) |
-| 06 | prototyping | ✓ | 原型制作 |
-| 07 | writing | ✓ | PRD撰写 |
-| 08 | change | ✓ | 变更分析(可选) |
+| 06 | genHTML | ✓ | HTML原型生成 |
+| 07 | change | ✓ | 变更分析(可选) |
 
 ---
 
@@ -140,6 +141,5 @@ output/V{version}/
 - clarify: see ./03-clarify.md
 - analysis: see ./04-analysis.md
 - detail: see ./05-detail.md
-- prototyping: see ./06-prototyping.md
-- writing: see ./07-writing.md
+- genHTML: see ./07-genHTML.md
 - change: see ./08-change.md

@@ -91,19 +91,74 @@ description: 需求分析技能。基于已确认的需求信息，生成初步P
 
 ## 步骤6 输出文件
 
-- 文件名: `analysis.md`
-- 路径: `./output/V{version}/analysis/analysis.md`
+### 6.1 目录初始化
+
+在analysis节点完成时，创建版本目录并生成PRD文档框架：
+
+```
+./{项目名称}_{datetime}/output/V1/
+├── PRD_V1.md              # PRD文档（初始版本）
+└── prototype/             # 原型目录（在genHTML节点创建）
+```
+
+### 6.2 PRD文档框架模板
+
+生成PRD文档，框架包含以下章节：
+
+```markdown
+# PRD文档 - V1.0
+
+## 1. 项目概述
+### 1.1 背景与目标 [brainstorm/clarify节点产出]
+### 1.2 用户角色
+
+## 2. 需求分析
+### 2.1 业务流程图 [analysis节点产出]
+### 2.2 页面列表
+### 2.3 功能列表
+
+## 3. 详细设计
+### 3.1 页面流程图 [detail节点产出]
+### 3.2 事件列表
+### 3.3 异常场景
+
+## 4. 页面详细设计
+### 4.1 {页面名称1}
+#### 4.1.1 页面说明
+#### 4.1.2 功能描述
+#### 4.1.3 业务流程图
+#### 4.1.4 事件列表
+#### 4.1.5 异常场景
+### 4.2 {页面名称2}
+...
+
+## 5. 原型与交互
+### 5.1 原型索引 [genHTML节点产出]
+### 5.2 页面原型引用
+
+## 6. 变更记录
+### 6.1 变更历史 [change节点维护]
+```
+
+### 6.3 输出路径
+
+- 文件名: `PRD_V1.md`
+- 路径: `./{项目名称}_{datetime}/output/V1/PRD_V1.md`
 - 生成规则: 见 [01-router.md](01-router.md) 中的文件生成规则
 
 ---
 
 ## 步骤7 完成后
 
-1. 保存产出到文件：`./output/V{version}/analysis/analysis.md`
-2. 调用 manage.update_node_output("analysis", "output/V{version}/analysis/analysis.md")
-3. 展示产出摘要
-4. 等待用户确认
-5. 确认后 → 调用 manage.update_node_status("analysis", "CONFIRM")
-6. 确认后 → 调用 manage.transition_to_next_node()
-7. 确认后 → 调用 manage.persist_memory()
-8. 进入下一节点
+1. 创建版本目录：`./{项目名称}_{datetime}/output/V1/`
+2. 读取brainstorm/analysis.md内容（brainstorm和clarify整合内容）
+3. 生成PRD文档框架，将brainstorm/clarify内容填入"项目概述"章节
+4. 将analysis节点产出填入"需求分析"章节
+5. 保存产出到文件：`./{项目名称}_{datetime}/output/V1/PRD_V1.md`
+6. 调用 manage.update_node_output("analysis", "{项目名称}_{datetime}/output/V1/PRD_V1.md")
+7. 展示产出摘要
+8. 等待用户确认
+9. 确认后 → 调用 manage.update_node_status("analysis", "CONFIRM")
+10. 确认后 → 调用 manage.transition_to_next_node()
+11. 确认后 → 调用 manage.persist_memory()
+12. 进入 Detail 节点

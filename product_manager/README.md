@@ -1,6 +1,6 @@
 # AIPM 产品经理工作流 Skill
 
-> 从模糊需求到标准 PRD 的完整链路，8 节点标准化流程
+> 从模糊需求到标准 PRD 的完整链路，7 节点标准化流程
 
 ---
 
@@ -9,12 +9,13 @@
 `product_manager` 是一个产品经理全流程工作流 Skill，专注于帮助 AI Agent 完成从需求理解到 PRD 文档交付的完整产品开发流程。
 
 **核心特点：**
-- 8 节点标准化流程：路由 → 头脑风暴 → 需求澄清 → 需求分析 → 详细设计 → 原型制作 → PRD 撰写 → 变更分析
+- 7 节点标准化流程：路由 → 头脑风暴 → 需求澄清 → 需求分析 → 详细设计 → HTML原型生成 → 变更分析
 - 独立变更分析节点 - 增量变更无需整体回退
 - 三级用户确认机制
 - 完整状态持久化可追溯
 - 历史版本永久保留
 - 上下文快照管理 - 确保节点间信息传递的一致性
+- 目录分离：brainstorm/（不纳入版本管理）和output/（纳入版本管理）
 
 ---
 
@@ -25,11 +26,10 @@
 | 01 | ROUTER | [nodes/01-router.md](nodes/01-router.md) | - | 入口路由器，定义全局执行规范 |
 | 02 | BRAINSTORM | [nodes/02-brainstorm.md](nodes/02-brainstorm.md) | ✓ | 头脑风暴，功能骨架发散 |
 | 03 | CLARIFY | [nodes/03-clarify.md](nodes/03-clarify.md) | ✓ | 需求澄清，7 维度深度挖掘 |
-| 04 | ANALYSIS | [nodes/04-analysis.md](nodes/04-analysis.md) | ✓ | 需求分析，PRD 骨架构建 |
+| 04 | ANALYSIS | [nodes/04-analysis.md](nodes/04-analysis.md) | ✓ | 需求分析，PRD 框架构建 |
 | 05 | DETAIL | [nodes/05-detail.md](nodes/05-detail.md) | ✓ | 详细设计，业务流程细化 |
-| 06 | PROTOTYPING | [nodes/06-prototyping.md](nodes/06-prototyping.md) | ✓ | 原型制作，ASCII + HTML 原型 |
-| 07 | WRITING | [nodes/07-writing.md](nodes/07-writing.md) | ✓ | PRD 撰写，整合输出 |
-| 08 | CHANGE | [nodes/08-change.md](nodes/08-change.md) | - | 变更分析，增量变更处理 |
+| 06 | GENHTML | [nodes/07-genHTML.md](nodes/07-genHTML.md) | ✓ | HTML原型生成，生成静态HTML原型 |
+| 07 | CHANGE | [nodes/08-change.md](nodes/08-change.md) | - | 变更分析，增量变更处理 |
 
 ---
 
@@ -71,7 +71,7 @@
   3. 循环确认：根据用户反馈调整或确认
   4. 整理产出：生成确认版功能骨架
   5. 等待用户确认
-[OUTPUT] ./output/V{version}/brainstorm/brainstorm.md
+[OUTPUT] ./{项目名}_{datetime}/brainstorm/brainstorm.md
 ```
 
 ---
@@ -93,7 +93,7 @@
   4. 停止规则：业务背景清晰 或 已完成 3 轮
   5. 结构化复述需求
   6. 保存文件，等待用户确认
-[OUTPUT] ./output/V{version}/clarify/clarify.md
+[OUTPUT] ./{项目名}_{datetime}/brainstorm/analysis.md
 
 禁止：询问技术实现细节（数据库设计、接口规范、技术选型）
 ```
@@ -118,7 +118,7 @@
   5. 埋点方案表格
   6. 异常场景处理
   7. 等待用户确认
-[OUTPUT] ./output/V{version}/analysis/analysis.md
+[OUTPUT] ./{项目名}_{datetime}/output/V{version}/PRD_{version}.md
 ```
 
 ---
@@ -144,12 +144,12 @@
      - 业务流程图 (Mermaid)
      - 事件逻辑、异常场景
   6. 等待用户确认
-[OUTPUT] ./output/V{version}/detail/detail.md
+[OUTPUT] ./{项目名}_{datetime}/output/V{version}/PRD_{version}.md（追加到"详细设计"章节）
 ```
 
 ---
 
-### 06 - PROTOTYPING (原型制作)
+### 06 - GENHTML (HTML原型生成)
 
 | 属性 | 说明 |
 |------|------|
@@ -166,43 +166,18 @@
   4. 逐个页面生成 HTML 原型
      - 如已安装 tdesign-component-helper Skill：调用技能
      - 如未安装：直接基于 TDesign 组件库生成
-  5. 生成 proto_index.html 原型索引
-  6. 等待用户确认
-[OUTPUT] ./output/V{version}/prototyping/
-  - proto_index.html (原型索引)
-  - page_{page_name}.html (各页面原型)
-```
-
----
-
-### 07 - WRITING (PRD 撰写)
-
-| 属性 | 说明 |
-|------|------|
-| **触发条件** | 用户确认 PROTOTYPING 产出后 |
-| **做什么** | 整合前序节点产出物，生成完整 PRD 文档和交互式 HTML 需求展示系统 |
-| **输出什么** | PRD 查看器 (index.html) + 需求概述 + 页面文档 |
-
-```
-[WHEN] 用户确认 PROTOTYPING 后
-[THEN] 
-  1. 从 Memory.json 读取 DETAIL 和 PROTOTYPING 的产出路径
-  2. 检查/创建输出目录
-  3. 生成需求概述页面 (overview.html)
-  4. 将 Markdown 页面文档转换为 HTML (doc/app/, doc/web/)
-  5. 生成交互式 PRD 查看器 (index.html)
-  6. 验证清单检查
+  5. 生成 prototype/index.html 原型索引
+  6. 更新 PRD 文档"原型与交互"章节
   7. 等待用户确认
-[OUTPUT] ./output/V{version}/writing/
-  - index.html (PRD 查看器)
-  - html/overview.html (需求概述)
-  - doc/app/*.html (C端页面文档)
-  - doc/web/*.html (B端页面文档)
+[OUTPUT] ./{项目名}_{datetime}/output/V{version}/prototype/
+  - index.html (原型索引)
+  - app/page_{page_name}.html (C端页面原型)
+  - web/page_{page_name}.html (B端页面原型)
 ```
 
 ---
 
-### 08 - CHANGE (变更分析)
+### 07 - CHANGE (变更分析)
 
 | 属性 | 说明 |
 |------|------|
@@ -303,8 +278,7 @@ product_manager/
 │   ├── 03-clarify.md           # 需求澄清
 │   ├── 04-analysis.md          # 需求分析
 │   ├── 05-detail.md             # 详细设计
-│   ├── 06-prototyping.md       # 原型制作
-│   ├── 07-writing.md           # PRD 撰写
+│   ├── 07-genHTML.md           # HTML原型生成
 │   └── 08-change.md            # 变更分析
 ├── references/
 │   ├── prd_viewer_template.html    # PRD 查看器模板
@@ -321,28 +295,25 @@ product_manager/
 
 ## 输出文件结构
 
+### 不纳入版本管理（brainstorm目录）
+
 ```
-./output/V{version}/
-├── brainstorm/
-│   └── brainstorm.md          # 功能骨架
-├── clarify/
-│   └── clarify.md              # 需求澄清
-├── analysis/
-│   └── analysis.md              # 需求分析（PRD 骨架）
-├── detail/
-│   └── detail.md                # 详细设计
-├── prototyping/
-│   ├── proto_index.html        # 原型索引
-│   └── page_*.html             # 页面原型
-└── writing/
-    ├── index.html               # PRD 查看器
-    ├── html/
-    │   └── overview.html       # 需求概述
-    └── doc/
-        ├── app/
-        │   └── *.html          # C端页面文档
-        └── web/
-            └── *.html          # B端页面文档
+./{项目名}_{datetime}/brainstorm/
+├── brainstorm.md               # 功能骨架
+└── analysis.md                  # brainstorm+clarify整合内容
+```
+
+### 纳入版本管理（output目录）
+
+```
+./{项目名}_{datetime}/output/V{version}/
+├── PRD_{version}.md           # PRD文档（整合所有节点产出）
+└── prototype/
+    ├── index.html              # 原型索引
+    ├── app/
+    │   └── page_*.html        # C端页面原型
+    └── web/
+        └── page_*.html        # B端页面原型
 ```
 
 ---
@@ -355,19 +326,19 @@ START
   ▼
 CHECK{Memory.json?}
   │
-  ├──NO──▶ 意图识别 + 方案确认 ──▶ 用户确认 ──▶ CLARIFY
+  ├──NO──▶ 意图识别 + 方案确认 ──▶ 用户确认 ──▶ BRAINSTORM
   │
   └──YES──▶ 恢复状态 ──▶ 定位当前节点 ──▶ 输出 AIPM 头部
                                             │
   ┌─────────────────────────────────────────┘
   ▼
-CLARIFY ──用户确认──▶ ANALYSIS ──用户确认──▶ DETAIL
-  │                                     │
-  │                                     ▼
-  │                          PROTOTYPING ──用户确认──▶ WRITING
-  │                                     │                    │
-  ▼                                     ▼                    ▼
-CHANGE ◀──────────────────────────────────────────────── DONE
+BRAINSTORM ──用户确认──▶ CLARIFY ──用户确认──▶ ANALYSIS
+  │                                                  │
+  │                                                  ▼
+  │                                      DETAIL ──用户确认──▶ GENHTML
+  │                                                       │
+  ▼                                                       ▼
+CHANGE ◀─────────────────────────────────────────────── DONE
   │
   │用户确认
   ▼
