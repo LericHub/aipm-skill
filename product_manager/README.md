@@ -15,7 +15,7 @@
 - 完整状态持久化可追溯
 - 历史版本永久保留
 - 上下文快照管理 - 确保节点间信息传递的一致性
-- 目录分离：brainstorm/（不纳入版本管理）和output/（纳入版本管理）
+- 目录分离：analysis_process/（不纳入版本管理）和output/（纳入版本管理）
 
 ---
 
@@ -71,7 +71,7 @@
   3. 循环确认：根据用户反馈调整或确认
   4. 整理产出：生成确认版功能骨架
   5. 等待用户确认
-[OUTPUT] ./{项目名}_{datetime}/brainstorm/brainstorm.md
+[OUTPUT] ./{项目名}_{datetime}/analysis_process/brainstorm.md
 ```
 
 ---
@@ -93,7 +93,7 @@
   4. 停止规则：业务背景清晰 或 已完成 3 轮
   5. 结构化复述需求
   6. 保存文件，等待用户确认
-[OUTPUT] ./{项目名}_{datetime}/brainstorm/analysis.md
+[OUTPUT] ./{项目名}_{datetime}/analysis_process/clarify.md
 
 禁止：询问技术实现细节（数据库设计、接口规范、技术选型）
 ```
@@ -139,7 +139,7 @@
   3. C端/B端页面和功能列表
   4. 埋点方案细化
   5. 按页面维度输出：
-     - 事件编号：页面编号-feat-序号
+     - 事件编号：`/{pageNameInEN}/feat-{序号}`
      - 事件名称、绑定页面、触发节点、事件描述
      - 业务流程图 (Mermaid)
      - 事件逻辑、异常场景
@@ -298,9 +298,9 @@ product_manager/
 ### 不纳入版本管理（brainstorm目录）
 
 ```
-./{项目名}_{datetime}/brainstorm/
-├── brainstorm.md               # 功能骨架
-└── analysis.md                  # brainstorm+clarify整合内容
+./{项目名}_{datetime}/analysis_process/
+│   ├── brainstorm.md            # 功能骨架
+└── clarify.md                   # brainstorm+clarify整合内容
 ```
 
 ### 纳入版本管理（output目录）

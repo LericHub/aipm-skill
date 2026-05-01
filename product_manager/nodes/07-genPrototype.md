@@ -5,13 +5,9 @@ description: 页面原型设计节点。读取PRD文档中的页面列表，在P
 
 # 07 - GenPrototype (页面原型设计)
 
-## 步骤1 知识卡片加载
-1. 识别当前用户输入内容中的核心话题/关键词
-2. 读取知识卡片索引文件：product_manager/references/knowledge_cards/index.md
-3. 根据识别出的话题匹配index中对应激活场景的知识卡片
-4. 读取所有匹配成功的知识卡片完整内容
+> **注意**：知识卡片加载已由 Router 统一处理。本节点接收 Router 传递的知识卡片内容作为输入。
 
-## 步骤2 职责
+## 步骤1 职责
 - 读取最新版本PRD文档
 - 解析页面列表（从"页面详细设计"章节提取）
 - 在Penpot中创建/获取原型设计页面
@@ -29,6 +25,11 @@ description: 页面原型设计节点。读取PRD文档中的页面列表，在P
 - penpot.fileId（Penpot文件ID）
 - penpot.pages.prototype（原型页面ID，可能为空）
 
+### 加载 penpot-drawing-skill
+
+绘制时，加载 `product_manager/skills/penpot-drawing-skill/SKILL.md`，根据指引选择对应的绘制guide：
+- 原型绘制 → `product_manager/skills/penpot-drawing-skill/references/prototype-drawing-guide.md`
+
 ---
 
 ## 步骤4 执行逻辑
@@ -39,75 +40,70 @@ description: 页面原型设计节点。读取PRD文档中的页面列表，在P
 2. 读取当前版本的PRD文件：`./{项目名}_{datetime}/output/V{version}/PRD_{version}.md`
 3. 从PRD文档的"页面详细设计"章节提取页面列表
 
-### 4.2 创建/获取Penpot页面
+### 4.2 连接 Penpot MCP 前的必要准备
+
+> **⚠️ 关键步骤**：在连接 Penpot MCP 进行绘制前，**必须先读取 penpot-helper-skill 的指引文件**。
+
+1. **读取 penpot-helper-skill 主文件**：
+   - 读取 `product_manager/skills/penpot-helper-skill/SKILL.md`
+   - 重点理解「Core mental model」和「Preventing overlap」章节
+
+2. **读取关键参考文件**：
+   - 读取 `product_manager/skills/penpot-helper-skill/references/mcp-generation-guide.md`
+     - 理解坐标系统（绝对坐标 vs 相对坐标）
+     - 掌握 ES5 兼容性要求
+     - 熟悉分步生成工作流
+   - 读取 `product_manager/skills/penpot-helper-skill/references/user-story-layout-guide.md`
+     - 掌握 Flex 布局防重叠技巧
+   - 读取 `product_manager/skills/penpot-helper-skill/references/layout-system.md`
+     - 理解 Flex/Grid 属性映射
+
+3. **布局优化（如需要）**：
+   - 若绘制后页面存在过多空白，读取 `product_manager/skills/penpot-layout-optimizer/SKILL.md`
+   - 应用内容驱动尺寸策略，消除过度空白
+
+3. **确认已理解以下关键规则后再继续**：
+   - ✅ `shape.x` / `shape.y` 是页面绝对坐标，非父级相对坐标
+   - ✅ 使用 `insertChild` 而非 `appendChild`（Flex 布局板除外）
+   - ✅ 文本必须设置 `growType`（`auto-width` 或 `auto-height`）
+   - ✅ 嵌套深度不超过 4 层 Board
+   - ✅ 先构建容器树，再设置样式，最后填充内容
+
+---
+
+### 4.3 创建/获取Penpot页面
+
+> **前提**：已读取 penpot-drawing-skill 指引。
 
 1. 检查 Memory.json 中 `penpot.pages.prototype` 是否为空
 2. 若为空：
-   - 调用 `penpot.createPage()` 创建新页面
-   - 页面命名：`页面原型 - V{version}`
-   - 更新 Memory.json：`penpot.pages.prototype = 新页面ID`
+   - **调用API创建新页面**：
+     ```
+     POST https://design.penpot.app/api/rpc/command/add-page
+     Authorization: Token ${PENPOT_ACCESS_TOKEN}
+     Content-Type: application/json
+
+     {
+       "fileId": "{penpot.fileId}",
+       "name": "prototype"
+     }
+     ```
+   - 保存响应中的 `pageId`
+   - 更新 Memory.json：`penpot.pages.prototype = pageId`
 3. 若已存在：
-   - 调用 `penpot.openPage()` 切换到该页面
+   - 通过MCP `execute_code` 切换到该页面
    - 清除页面上的旧内容（保留页面结构）
 
 ### 4.3 绘制页面设计稿
 
-**容器结构：**
-```
-所有页面原型 (Board, flex column)
-└── 页面: XXX (Board, flex column)
-    ├── 页面标题 (Text)
-    ├── 功能区域1 (Board)
-    ├── 功能区域2 (Board)
-    └── 操作按钮区 (Board, flex row)
-```
+**容器结构和绘制代码**：请参考 `product_manager/skills/penpot-drawing-skill/references/prototype-drawing-guide.md`
 
-**绘制规范：**
-
-1. **父容器**（所有页面原型）：
-   ```javascript
-   var parentBoard = penpot.createBoard();
-   parentBoard.name = "所有页面原型";
-   parentBoard.resize(1200, 3000);
-   parentBoard.fills = [{ fillColor: "#FAFAFA", fillOpacity: 1 }];
-   var parentFlex = penpotUtils.addFlexLayout(parentBoard, "column");
-   parentFlex.rowGap = 40;
-   parentFlex.topPadding = 50;
-   parentFlex.leftPadding = 50;
-   parentFlex.rightPadding = 50;
-   ```
-
-2. **页面容器**：
-   ```javascript
-   var pageBoard = penpot.createBoard();
-   pageBoard.name = "页面: " + pageName;
-   pageBoard.resize(375, 812); // 手机页面尺寸
-   pageBoard.fills = [{ fillColor: "#FFFFFF", fillOpacity: 1 }];
-   pageBoard.borderRadius = 12;
-   pageBoard.shadows = [{
-     shadowColor: "#000000", shadowOpacity: 0.1,
-     shadowOffsetX: 0, shadowOffsetY: 4, shadowBlur: 12
-   }];
-   var pageFlex = penpotUtils.addFlexLayout(pageBoard, "column");
-   pageFlex.rowGap = 16;
-   pageFlex.topPadding = 24;
-   pageFlex.leftPadding = 24;
-   pageFlex.rightPadding = 24;
-   pageFlex.bottomPadding = 24;
-   ```
-
-3. **页面元素**：
-   - 页面标题：大号文本（fontSize: 20）
-   - 功能区域：带背景色的Board，包含功能描述
-   - 操作按钮：带圆角的Rectangle或Text
-
-### 4.4 绘制内容参考
-
-根据PRD中每个页面的详细设计：
-- 页面名称 → 页面标题
-- 功能描述 → 功能区域内容
-- 事件列表 → 操作按钮区
-- 异常场景 → 标注在对应功能区域旁
+该指引包含：
+- 容器结构定义
+- 父容器代码（所有页面原型 Board）
+- 页面容器代码（375×812 手机尺寸）
+- 页面元素绘制代码（标题、功能区域、操作按钮）
+- 绘制内容参考（PRD 内容映射）
 
 ---
 
@@ -149,6 +145,7 @@ description: 页面原型设计节点。读取PRD文档中的页面列表，在P
 2. 解析页面列表
 3. 创建/获取Penpot原型设计页面
 4. 绘制页面设计稿
+   - 参考 `penpot-drawing-skill/references/prototype-drawing-guide.md`
 5. 验证无重叠
 6. 更新Memory.json的penpot.pages.prototype
 7. 展示产出摘要（页面列表+Penpot链接）

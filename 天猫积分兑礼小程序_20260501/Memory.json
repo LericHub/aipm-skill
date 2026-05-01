@@ -1,0 +1,32 @@
+{
+  "project": {
+    "name": "天猫积分兑礼小程序",
+    "version": "V1.0",
+    "directory": "天猫积分兑礼小程序_20260501"
+  },
+  "current_node": "detail",
+  "directories": {
+    "brainstorm": "天猫积分兑礼小程序_20260501/brainstorm",
+    "output": "天猫积分兑礼小程序_20260501/output"
+  },
+  "penpot": {
+    "projectUrl": "https://design.penpot.app/#/workspace?team-id=30c95215-44cf-80fa-8007-dfa01ff106f5&file-id=95ecf5e0-91fe-80de-8007-f40e3e90b1e1",
+    "fileId": "95ecf5e0-91fe-80de-8007-f40e3e90b1e1",
+    "pages": {
+      "userStory": "00872de2-b5a1-8098-8007-f41096f74940",
+      "prototype": "",
+      "prd": ""
+    }
+  },
+  "node_list": [
+    {"name": "router", "status": "CONFIRM"},
+    {"name": "brainstorm", "status": "CONFIRM", "file": "天猫积分兑礼小程序_20260501/brainstorm/brainstorm.md"},
+    {"name": "clarify", "status": "CONFIRM", "file": "天猫积分兑礼小程序_20260501/brainstorm/analysis.md"},
+    {"name": "analysis", "status": "CONFIRM", "file": "天猫积分兑礼小程序_20260501/output/V1/PRD_V1.md"},
+    {"name": "drawUserStory", "status": "CONFIRM", "penpotPage": "userStory"},
+    {"name": "detail", "status": "CONFIRM", "file": "天猫积分兑礼小程序_20260501/output/V1/PRD_V1.md"},
+    {"name": "genPrototype", "status": "DRAFT", "penpotPage": "prototype"},
+    {"name": "genHTML", "status": "PENDING"},
+    {"name": "change", "status": "PENDING"}
+  ]
+}
