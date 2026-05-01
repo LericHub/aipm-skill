@@ -161,4 +161,4 @@ description: 需求分析技能。基于已确认的需求信息，生成初步P
 9. 确认后 → 调用 manage.update_node_status("analysis", "CONFIRM")
 10. 确认后 → 调用 manage.transition_to_next_node()
 11. 确认后 → 调用 manage.persist_memory()
-12. 进入 Detail 节点
+12. 进入 DrawUserStory 节点
