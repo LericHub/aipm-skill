@@ -2,7 +2,7 @@
   "project": "积分计算器",
   "version": "V1.0",
   "status": "DRAFT",
-  "current_node": "BRAINSTORM",
+  "current_node": "ROUTER",
   "node_list": [
     {
       "node": "ROUTER",
@@ -11,7 +11,7 @@
     },
     {
       "node": "BRAINSTORM",
-      "status": "DRAFT",
+      "status": "PENDING",
       "output": {
         "path": "./analysis_process/brainstorm.md"
       }
