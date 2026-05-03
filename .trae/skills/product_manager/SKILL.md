@@ -1,3 +1,8 @@
+---
+name: product_manager
+description: 当用户正在进行产品经理工作，从产品需求分析、功能策划、澄清、详细设计、生成PRD和原型等节点时需要使用
+---
+
 # AIPM 产品经理工作流 Skill
 
 > 从模糊需求到标准 PRD、Penpot 设计稿与 HTML 原型的完整链路。

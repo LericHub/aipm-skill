@@ -19,9 +19,9 @@ description: 需求分析技能。基于已确认的需求信息，生成初步P
 
 ### 前序节点产出物
 
-从 Memory.json 获取 clarify 的 file 路径：
+从 Memory.json 获取 clarify 的 `output.path`：
 - 调用 manage.read_memory() 获取 node_list
-- 从 node_list 中获取 clarify 的 file 字段
+- 从 node_list 中获取 clarify 的 `output.path` 字段
 - 读取该文件内容
 
 ---
@@ -92,9 +92,9 @@ description: 需求分析技能。基于已确认的需求信息，生成初步P
 在analysis节点完成时，创建版本目录并生成PRD文档框架：
 
 ```
-./{项目名称}_{datetime}/output/V1/
-├── PRD_V1.md              # PRD文档（初始版本）
-└── prototype/             # 原型目录（在genHTML节点创建）
+./{项目名称}_{datetime}/output/V1.0/
+├── PRD_V1.0.md           # PRD文档（初始版本）
+└── prototype/            # 原型目录（在genHTML节点创建）
 ```
 
 ### 6.2 PRD文档框架模板
@@ -162,20 +162,20 @@ description: 需求分析技能。基于已确认的需求信息，生成初步P
 
 ### 6.3 输出路径
 
-- 文件名: `PRD_V1.md`
-- 路径: `./{项目名称}_{datetime}/output/V1/PRD_V1.md`
+- 文件名: `PRD_{Version}.md`
+- 路径: `./{项目名称}_{datetime}/output/{Version}/PRD_{Version}.md`
 - 生成规则: 见 [01-router.md](01-router.md) 中的文件生成规则
 
 ---
 
 ## 步骤7 完成后
 
-1. 创建版本目录：`./{项目名称}_{datetime}/output/V1/`
+1. 创建版本目录：`./{项目名称}_{datetime}/output/V1.0/`
 2. 读取analysis_process/clarify.md内容（brainstorm和clarify整合内容）
 3. 生成PRD文档框架，将brainstorm/clarify内容填入"项目概述"章节
 4. 将analysis节点产出填入"需求分析"章节
-5. 保存产出到文件：`./{项目名称}_{datetime}/output/V1/PRD_V1.md`
-6. 调用 manage.update_node_output("analysis", "{项目名称}_{datetime}/output/V1/PRD_V1.md")
+5. 保存产出到文件：`./{项目名称}_{datetime}/output/V1.0/PRD_V1.0.md`
+6. 调用 manage.update_node_output("analysis", {"type": "prd", "path": "{项目名称}_{datetime}/output/V1.0/PRD_V1.0.md"})
 7. 展示产出摘要
 8. 等待用户确认
 9. 确认后 → 调用 manage.update_node_status("analysis", "CONFIRM")

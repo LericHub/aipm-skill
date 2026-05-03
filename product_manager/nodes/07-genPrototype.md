@@ -21,7 +21,7 @@ description: 页面原型设计节点。读取PRD文档中的页面列表，在P
 ### 前序节点产出物
 
 从 Memory.json 获取：
-- detail节点的file路径（PRD文档）
+- detail节点的 `output.path`（PRD文档）
 - penpot.fileId（Penpot文件ID）
 - penpot.pages.prototype（原型页面ID，可能为空）
 
@@ -37,37 +37,12 @@ description: 页面原型设计节点。读取PRD文档中的页面列表，在P
 ### 4.1 读取PRD文档
 
 1. 调用 manage.read_memory() 获取项目信息
-2. 读取当前版本的PRD文件：`./{项目名}_{datetime}/output/V{version}/PRD_{version}.md`
+2. 读取当前版本的PRD文件：`./{项目名}_{datetime}/output/{Version}/PRD_{Version}.md`
 3. 从PRD文档的"页面详细设计"章节提取页面列表
 
 ### 4.2 连接 Penpot MCP 前的必要准备
 
-> **⚠️ 关键步骤**：在连接 Penpot MCP 进行绘制前，**必须先读取 penpot-helper-skill 的指引文件**。
-
-1. **读取 penpot-helper-skill 主文件**：
-   - 读取 `product_manager/skills/penpot-helper-skill/SKILL.md`
-   - 重点理解「Core mental model」和「Preventing overlap」章节
-
-2. **读取关键参考文件**：
-   - 读取 `product_manager/skills/penpot-helper-skill/references/mcp-generation-guide.md`
-     - 理解坐标系统（绝对坐标 vs 相对坐标）
-     - 掌握 ES5 兼容性要求
-     - 熟悉分步生成工作流
-   - 读取 `product_manager/skills/penpot-helper-skill/references/user-story-layout-guide.md`
-     - 掌握 Flex 布局防重叠技巧
-   - 读取 `product_manager/skills/penpot-helper-skill/references/layout-system.md`
-     - 理解 Flex/Grid 属性映射
-
-3. **布局优化（如需要）**：
-   - 若绘制后页面存在过多空白，读取 `product_manager/skills/penpot-layout-optimizer/SKILL.md`
-   - 应用内容驱动尺寸策略，消除过度空白
-
-3. **确认已理解以下关键规则后再继续**：
-   - ✅ `shape.x` / `shape.y` 是页面绝对坐标，非父级相对坐标
-   - ✅ 使用 `insertChild` 而非 `appendChild`（Flex 布局板除外）
-   - ✅ 文本必须设置 `growType`（`auto-width` 或 `auto-height`）
-   - ✅ 嵌套深度不超过 4 层 Board
-   - ✅ 先构建容器树，再设置样式，最后填充内容
+> **⚠️ 关键步骤**：在连接 Penpot MCP 进行绘制前，必须先读取 `product_manager/skills/penpot-drawing-skill/SKILL.md` 中维护的统一 preflight 指引。
 
 ---
 
@@ -94,7 +69,7 @@ description: 页面原型设计节点。读取PRD文档中的页面列表，在P
    - 通过MCP `execute_code` 切换到该页面
    - 清除页面上的旧内容（保留页面结构）
 
-### 4.3 绘制页面设计稿
+### 4.4 绘制页面设计稿
 
 **容器结构和绘制代码**：请参考 `product_manager/skills/penpot-drawing-skill/references/prototype-drawing-guide.md`
 

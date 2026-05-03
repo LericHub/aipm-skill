@@ -7,16 +7,19 @@
 
 # Penpot 访问令牌
 # 获取方式：登录 Penpot → Settings → Access Tokens → 创建新 token
-PENPOT_ACCESS_TOKEN: "eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2R0NNIn0.ZZAs4OT8u2HZilc0jB2IMH39Df_CuXh-zQaabHMpmd9P9sEvURj9mg.Icj24nCUZ1lSHPEq.J6c-yA87NIWaQ0XACWENMfKdID4btyuosZY1sByR--NL_w7aGFiD18UYu_p6cMLG3IlIOcwUVlPJa4Ncl4uSrmkCuvvkAmVWqc4u5fmoDaO0shxV2Jo_O1HYxbywHoBgjGzyL1T6d_J1l7JPtpIc-ItZdTCk96-TjyuJ2RWw8b9moHtg_4Fvy0yxmn0fNA5ETpI7Ycs3Je9e.ERbc04lV7icsiY58T2s9xA"
+PENPOT_ACCESS_TOKEN: "eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2R0NNIn0.iUhJJqn6ymM4rpeXbGMhVEtbGmd2ZX5oJJatcRjrWzT4PQ3LoZxopQ.Ib4bejFZ5Mt0MUq8.vuP8c3DA0iYG_UC9xYXnnCFjmEse04oIDv1RfMaAGxO35TbJDwJdWEVw6xh9oCZFH9lnp1qO0c_ALwhpRRG4YYVdQjlv2JfVJD7BZ0Rq6OeeV-efVXAN5-jAgIRlZDdWA8F1loFUMOIhCcuIc3zGOVOHOwiryXtmBaRe2zW87O_SAqFvOmJenCowZ52jt4d6bxze6M4tPKiC.VGF84Z_FzZ71uxYEbdZNKg"
 
 # Penpot 基础 URL（自托管时修改）
-PENPOT_BASE_URL: "https://design.penpot.app"
+PENPOT_BASE_URL: "http://192.168.1.100:9001"
 
 # 团队 ID（从 get-profile 或 create-file 响应中获取）
-TEAM_ID: "30c95215-44cf-80fa-8007-dfa01ff106f5"
+TEAM_ID: "e6e20326-0802-8183-8007-f691bd15fa70"
 
 # 项目 ID（从 URL 或 create-file 响应中获取）
 PROJECT_ID: "0075361e-ccf8-8015-8007-e050cd608729"
+
+# 页面 ID
+PAGE_ID: "9df005f7-9c6f-80fa-8007-f695c370efe3"
 
 
 # ============================================================

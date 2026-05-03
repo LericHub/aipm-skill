@@ -33,8 +33,8 @@ AIPM Skill 节点文件目录
 `product_manager/nodes/_manage.md` 是内部共享能力，供其他节点调用，不作为独立节点执行。
 
 **职责：**
-- 状态管理：节点状态机（DRAFT/CONFIRM）、节点流转、需求变更路由
-- 记忆管理：上下文快照读写、Memory.json 持久化
+- 状态管理：节点状态机（PENDING/DRAFT/CONFIRM）、节点流转、需求变更路由
+- 记忆管理：统一的 Memory schema、节点 output 索引、Memory.json 持久化
 - 版本管理：版本号查询和递增
 
 **调用时机：**
