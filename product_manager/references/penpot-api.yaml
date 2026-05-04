@@ -1,5 +1,6 @@
 # Penpot API 配置
 # 供 product_manager skill 动态读取
+# v2.15 验证通过
 
 # ============================================================
 # 用户必填参数
@@ -16,17 +17,16 @@ PENPOT_BASE_URL: "http://192.168.1.100:9001"
 TEAM_ID: "e6e20326-0802-8183-8007-f691bd15fa70"
 
 # 项目 ID（从 URL 或 create-file 响应中获取）
-PROJECT_ID: "0075361e-ccf8-8015-8007-e050cd608729"
-
-# 页面 ID
-PAGE_ID: "9df005f7-9c6f-80fa-8007-f695c370efe3"
+PROJECT_ID: "9df005f7-9c6f-80fa-8007-f699acc56def"
 
 
 # ============================================================
 # API 基础配置（通常无需修改）
 # ============================================================
 
-base_url: "${PENPOT_BASE_URL}/api/rpc"
+# 所有 API 端点统一使用 /api/rpc/command/ 路径
+# 必须携带 Accept: application/json 以获取 JSON 响应（默认返回 transit 格式）
+base_url: "${PENPOT_BASE_URL}/api/rpc/command"
 
 auth:
   type: Token
@@ -38,85 +38,73 @@ headers:
   Accept: application/json
 
 # ============================================================
-# API 端点
+# API 端点（v2.15 实测验证）
 # ============================================================
 
 endpoints:
-  # 文件管理
+  # ---------- 用户资料 ----------
+  get_profile:
+    method: POST
+    path: /get-profile
+    params: {}
+
+  # ---------- 文件管理 ----------
   create_file:
     method: POST
-    path: /command/create-file
+    path: /create-file
     params:
-      name: string        # 必填，文件名
+      name: string        # 必填，文件名（最长250字符）
       project-id: string  # 必填，项目ID（UUID格式）
-      id: string          # 可选，文件ID
-      is-shared: boolean  # 可选，是否共享
-      features: array     # 可选，功能特性列表
 
   get_file:
     method: POST
-    path: /query/get-file
+    path: /get-file
+    params:
+      id: string          # 必填，文件ID
+      page-id: string     # 可选，页面ID
+
+  get_file_info:
+    method: POST
+    path: /get-file-info
+    params:
+      id: string          # 必填，文件ID
+    note: 轻量查询，仅返回 id。页面列表需通过 get_file 获取
+
+  get_file_summary:
+    method: POST
+    path: /get-file-summary
     params:
       id: string          # 必填，文件ID
 
-  list_files:
-    method: POST
-    path: /query/list-files
-    params:
-      project-id: string  # 必填，项目ID
-
   rename_file:
     method: POST
-    path: /command/rename-file
+    path: /rename-file
     params:
       id: string          # 必填，文件ID
       name: string        # 必填，新文件名
 
   delete_file:
     method: POST
-    path: /command/delete-file
+    path: /delete-file
     params:
       id: string          # 必填，文件ID
 
-  # 页面管理
-  add_page:
+  # ---------- 页面信息获取 ----------
+  # 注意：add_page / rename_page / delete_page / list_pages 在 v2.15 中不存在为独立 API
+  # 页面列表通过 get_file 响应中的 data.pages + data.pagesIndex 获取
+  # 页面增删改通过 Penpot MCP Plugin 的 change 机制执行
+
+  # ---------- 团队 ----------
+  get_team_members:
     method: POST
-    path: /command/add-page
+    path: /get-team-members
     params:
-      id: string          # 必填，文件ID
-      name: string        # 必填，页面名称
+      team-id: string     # 必填，团队ID
 
-  list_pages:
-    method: POST
-    path: /query/list-pages
-    params:
-      file-id: string     # 必填，文件ID
-
-  rename_page:
-    method: POST
-    path: /command/rename-page
-    params:
-      file-id: string     # 必填，文件ID
-      page-id: string     # 必填，页面ID
-      name: string        # 必填，新页面名称
-
-  delete_page:
-    method: POST
-    path: /command/delete-page
-    params:
-      file-id: string     # 必填，文件ID
-      page-id: string     # 必填，页面ID
-
-  # 用户资料
-  get_profile:
-    method: POST
-    path: /query/get-profile
-    params: {}            # 无需参数
-
-  # 文件分享
+  # ---------- 分享 ----------
   create_share_link:
     method: POST
-    path: /command/create-share-link
+    path: /create-share-link
     params:
       file-id: string     # 必填，文件ID
 

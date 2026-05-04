@@ -43,22 +43,14 @@ description: |
    - 嵌套深度不超过 4 层 Board
    - 先构建容器树，再设置样式，最后填充内容
 
+> API 与页面管理口径统一参考 `product_manager/skills/penpot-helper-skill/references/api-reference.md`。
+
 ## 步骤1 创建/获取 Penpot 页面
 
 1. 检查 Memory.json 中 `penpot.pages.prd` 是否为空
 2. 若为空：
-   - **调用API创建新页面**：
-     ```
-     POST https://design.penpot.app/api/rpc/command/add-page
-     Authorization: Token ${PENPOT_ACCESS_TOKEN}
-     Content-Type: application/json
-     
-     {
-       "fileId": "{penpot.fileId}",
-       "name": "PRD"
-     }
-     ```
-   - 保存响应中的 `pageId`
+   - **通过 MCP Plugin 创建新页面**：发送 `add-page` change，指定 `name` 为 `"PRD"`，`id` 为新生成的 UUID
+   - 保存生成的 `pageId`
    - 更新 Memory.json：`penpot.pages.prd = pageId`
 3. 若已存在：
    - 通过MCP `execute_code` 切换到该页面

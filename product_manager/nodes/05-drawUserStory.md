@@ -107,7 +107,7 @@ description: 在 analysis 节点产出确认后进入。在此节点将PRD中的
 2. **接收用户发送的文件URL**
 3. **解析URL**：按 `user-story-drawing-guide.md` 4.6.1 节的代码解析 URL 中的 `team-id` 和 `file-id`
 4. **校验团队一致性**：
-   - 获取当前用户所属团队ID（通过 `GET /api/rpc/query/get-profile`）
+   - 获取当前用户所属团队ID（使用 `penpot-api.yaml` 中 `get_profile` 端点）
    - 若 `teamId` 与当前用户团队不一致：
      - 提示用户："⚠️ 检测到团队不一致。请使用个人团队创建文件，或联系管理员添加权限。"
      - 重新进入手动创建引导
@@ -141,9 +141,9 @@ description: 在 analysis 节点产出确认后进入。在此节点将PRD中的
 
 1. 检查 Memory.json 中 `penpot.pages.userStory` 是否为空
 2. **若为空**（首次进入 drawUserStory 节点）：
-   - **获取文件页面列表**：使用 `penpot-api.yaml` 中 `list_pages` 端点，参数 `file-id` 为 `{penpot.fileId}`
-   - **将默认页面重命名为"用户故事"**：使用 `penpot-api.yaml` 中 `rename_page` 端点，参数 `file-id` / `page-id` / `name` 为 `"用户故事"`
-   - 保存页面ID：`penpot.pages.userStory = response.pages[0].id`
+   - **获取默认页面**：调用 `get-file`（`penpot-api.yaml`）获取文件数据，从 `data.pages[0]` 取默认页面 ID
+   - **重命名默认页面为"用户故事"**：通过 MCP Plugin 发送 `mod-page` change，参数 `id`（页面ID）/ `name`（"用户故事"）
+   - 保存页面ID：`penpot.pages.userStory = pageId`
    - 更新 Memory.json
 3. **若已存在**（非首次进入）：
    - 通过 MCP `execute_code` 切换到该页面

@@ -537,4 +537,15 @@ return penpot.generateMarkup(penpot.selection, { type: 'svg' });
 | `Group` | Non-layout container |
 | `Boolean` | Boolean operations result |
 | `Image` | Image element (legacy) |
+
+## REST API Reference
+
+The Penpot REST API surface and constraints are documented in:
+- **`references/api-reference.md`** — v2.15 实测验证的 API 清单、页面管理方法和认证规则
+
+Key takeaways:
+- All endpoints use `/api/rpc/command/<name>`, no `/query/` path
+- Always set `Accept: application/json` (default is transit+json)
+- Page listing via `get-file` → `data.pages` + `data.pagesIndex`
+- Page CRUD via MCP Plugin change mechanism, not standalone REST endpoints
 | `SvgRaw` | Raw SVG content |

@@ -72,6 +72,13 @@ layout should pass all of these. Each item maps back to a specific pitfall.
 - [ ] Status is never communicated by color alone.
 - [ ] Interactive targets ≥ 44×44 px on mobile.
 
+## API
+
+- [ ] `Accept: application/json` header is set on every request (default is transit+json, which is unreadable).
+- [ ] All endpoints use `/api/rpc/command/<name>` path (no `/query/` path exists).
+- [ ] Page listing reads from `get-file` response `data.pages` + `data.pagesIndex` (no standalone `list-pages` API).
+- [ ] Page creation/rename/delete is done via MCP Plugin change mechanism, not REST API.
+
 ## Sanity check with Inspect
 
 - [ ] Open Inspect mode on a flagship Board. Skim the CSS output. If something
