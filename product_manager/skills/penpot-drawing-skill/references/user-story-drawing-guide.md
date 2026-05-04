@@ -473,3 +473,31 @@ pageFlowArea.appendChild(branchJump);
 - [ ] 所有文本元素都是某个Board的子元素
 - [ ] 所有包含文本的Board都有Flex布局
 - [ ] 文本之间无重叠（间距 > 0）
+
+---
+
+## 4.6 Penpot 文件/页面管理辅助代码
+
+以下代码用于 drawUserStory 节点中对 Penpot 文件和页面的管理操作。
+
+### 4.6.1 URL 解析（手动创建引导流程）
+
+当 Penpot API 自动创建文件失败，引导用户手动提供文件 URL 后，使用以下代码解析 URL 中的 team-id 和 file-id：
+
+```javascript
+var urlObj = new URL(userInputUrl);
+var teamId = urlObj.searchParams.get("team-id");
+var fileId = urlObj.searchParams.get("file-id");
+```
+
+### 4.6.2 清除页面旧内容
+
+非首次进入 drawUserStory 节点时，先清除页面上的旧绘制内容，从后往前遍历删除：
+
+```javascript
+var root = penpot.root;
+var kids = root.children.slice();
+for (var i = kids.length - 1; i >= 0; i--) {
+  kids[i].remove();
+}
+```
