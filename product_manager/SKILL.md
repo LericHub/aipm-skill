@@ -1,6 +1,29 @@
 ---
 name: product_manager
 description: 产品经理全流程工作流，从模糊需求到标准PRD完整链路；当用户进入需求分析、原型设计、PRD生成等场景时触发。
+version: "1.1-SNAPSHOT"
+update: 2026-05-05
+---
+
+## 加载检查
+
+每次进入本 skill 时，必须先执行以下检查并输出工作流状态头：
+
+1. 检查项目根目录是否存在 `Memory.json`
+2. 若存在：
+   - 读取 `current_node` 和 `node_list[].status`
+   - 输出状态头：
+     ```
+     ━━ 💼 产品经理工作流 | v{version} | {update} ━━
+     📂 项目: {project_name} | 📍 当前节点: {current_node}({status})
+     ```
+3. 若不存在：
+   - 输出：
+     ```
+     ━━ 💼 产品经理工作流 | v{version} | {update} ━━
+     🆕 新项目 — 即将进入 brainstorm
+     ```
+
 ---
 
 # 产品经理工作流

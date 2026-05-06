@@ -1,0 +1,48 @@
+{
+  "project": {
+    "name": "积分计算器",
+    "version": "V1.0",
+    "directory": "积分计算器_20260505_110617"
+  },
+  "current_node": "detail",
+  "directories": {
+    "analysis_process": "积分计算器_20260505_110617/analysis_process",
+    "output": "积分计算器_20260505_110617/output/V1.0"
+  },
+  "penpot": {
+    "projectUrl": "http://192.168.1.100:9001/#/workspace?team-id=e6e20326-0802-8183-8007-f691bd15fa70&file-id=4cc3567f-9a72-80e1-8007-f8d3953146e8",
+    "fileId": "4cc3567f-9a72-80e1-8007-f8d3953146e8",
+    "pages": {
+      "userStory": "4cc3567f-9a72-80e1-8007-f8d39531bfa3",
+      "prd": "",
+      "prototype": ""
+    }
+  },
+  "node_list": [
+    { "name": "router", "status": "CONFIRM" },
+    {
+      "name": "brainstorm",
+      "status": "CONFIRM",
+      "output": { "type": "markdown", "path": "积分计算器_20260505_110617/analysis_process/brainstorm.md" }
+    },
+    {
+      "name": "clarify",
+      "status": "CONFIRM",
+      "output": { "type": "markdown", "path": "积分计算器_20260505_110617/analysis_process/clarify.md" }
+    },
+    {
+      "name": "analysis",
+      "status": "CONFIRM",
+      "output": { "type": "prd", "path": "积分计算器_20260505_110617/output/V1.0/PRD_V1.0.md" }
+    },
+    {
+      "name": "drawUserStory",
+      "status": "CONFIRM",
+      "output": { "type": "penpot_page", "page_key": "userStory", "page_id": "4cc3567f-9a72-80e1-8007-f8d39531bfa3" }
+    },
+    { "name": "detail", "status": "DRAFT" },
+    { "name": "genPrototype", "status": "PENDING" },
+    { "name": "genHTML", "status": "PENDING" },
+    { "name": "change", "status": "PENDING" }
+  ]
+}
